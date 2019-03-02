@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin'); // Does not support Webpack 4 right now.
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const config = {
   // entry: {
@@ -18,13 +18,13 @@ const config = {
   // },
   entry: [
     'react-hot-loader/patch',
-    './app/index.js'
+    './app/index.js',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -34,21 +34,21 @@ const config = {
         test: /\.css$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { sourceMap: true, modules: true, localIdentName: '[local]___[hash:base64:5]' } }
+          { loader: 'css-loader', options: { sourceMap: true, modules: true, localIdentName: '[local]___[hash:base64:5]' } },
         ],
-        exclude: /\.global\.css$/
+        exclude: /\.global\.css$/,
       },
-      { test: /\.(png|jpg|gif)$/, use: [{ loader: 'url-loader', options: { limit: 8192 } }] }
-    ]
+      { test: /\.(png|jpg|gif)$/, use: [{ loader: 'url-loader', options: { limit: 8192 } }] },
+    ],
   },
   devServer: {
     historyApiFallback: true,
-    hot: true
+    hot: true,
   },
   optimization: {
     splitChunks: {
       name: false,
-    }
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
@@ -60,14 +60,14 @@ const config = {
     // }),
     new CopyWebpackPlugin([
       // Copy directory contents to {output}/
-      { from: 'app/pwa' }
+      { from: 'app/pwa' },
     ]),
     new InjectManifest({
       swSrc: './app/service-worker.js',
-      swDest: './service-worker.js'
+      swDest: './service-worker.js',
     }),
     // new BundleAnalyzerPlugin() // Analyze the bundle file.
-  ]
+  ],
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
@@ -101,12 +101,12 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
           modules: true,
           localIdentName: '[local]___[hash:base64:5]',
           minimize: {
-            safe: true
-          }
-        }
-      }
+            safe: true,
+          },
+        },
+      },
     ],
-    exclude: /\.global\.css$/
+    exclude: /\.global\.css$/,
   });
 
   config.mode = 'production';
@@ -119,13 +119,13 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
     // }),
     // new ExtractTextPlugin({ filename: '[name].css', allChunks: true }), // Extract css to one file.
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name].css',
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
           // remove warnings
-          warnings: false, // Display warnings when dropping unreachable code or unused declarations etc.
+          warnings: false,
           sequences: true, // Join consecutive simple statements using the comma operator
           dead_code: true,
           conditionals: true, // Apply optimizations for if-s and conditional expressions.
@@ -133,10 +133,10 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
           unused: true, // Drop unreferenced functions and variables.
           if_return: true,
           join_vars: true,
-          drop_console: true
-        }
-      }
-    })
+          drop_console: true,
+        },
+      },
+    }),
   );
 }
 
