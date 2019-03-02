@@ -26,3 +26,4 @@ yarn-error.log*
 
 # others
 .coveralls.yml
+information.txt
