@@ -27,8 +27,8 @@ const theme = createMuiTheme({
 });
 
 /* istanbul ignore next */
-const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
-const TestPage = importedComponent(() => import(/* webpackChunkName: "TestPageContainer" *//* webpackPrefetch: true */ './containers/TestContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+const TestPage = importedComponent(() => import(/* webpackChunkName: "TestPageContainer" *//* webpackPrefetch: true */ './containers/TestPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
