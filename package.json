@@ -51,6 +51,8 @@
     "@kevinwang0316/react-materialui-pagination": "^1.1.4",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "aws-amplify": "^1.1.22",
+    "aws-amplify-react": "^2.3.2",
     "axios": "^0.18.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
