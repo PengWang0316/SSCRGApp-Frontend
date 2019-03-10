@@ -46,7 +46,7 @@ export default () => (
     <Router>
       <div>
         <CssBaseline />
-        {/* <Navbar /> */}
+        <Navbar />
         <main>
           <Switch>
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
