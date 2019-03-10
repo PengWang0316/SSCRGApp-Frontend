@@ -3,9 +3,9 @@ export const BASE_URL = ''; // Production server
 export const HOME_PAGE_URL = '/';
 
 export const cognitoConfig = {
-  userPoolId: 'us-west-2_dpFcYh6zK',
+  userPoolId: 'us-west-2_H5b19kIOP',
   region: 'us-west-2',
-  userPoolWebClientId: 'jr91pfromc0iu9s0ee6cb4t8o',
+  userPoolWebClientId: '2nr52a5iheoumqcgr47qnlqojq',
 };
 
 export const amplifyAuthSignOption = {
@@ -16,7 +16,7 @@ export const amplifyAuthSignOption = {
         label: 'Nickname', key: 'nickname', required: true, type: 'string', displayOrder: 1,
       },
       {
-        label: 'Email', key: 'email', required: true, type: 'string', displayOrder: 2,
+        label: 'Email', key: 'username', required: true, type: 'string', displayOrder: 2,
       },
     ],
   },
