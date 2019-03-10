@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { withAuthenticator } from 'aws-amplify-react';
 import { Typography } from '@material-ui/core';
 
+import { amplifyAuthSignOption } from '../../config';
+
 const TestPageContainer = () => (
   <Link to="/" data-testid="orderLink">
     <Typography color="textPrimary" variant="subtitle1">HomePage</Typography>
   </Link>
 );
-export default withAuthenticator(TestPageContainer);
+export default withAuthenticator(TestPageContainer, amplifyAuthSignOption);
