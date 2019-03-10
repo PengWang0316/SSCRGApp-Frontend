@@ -10,6 +10,9 @@ import { HOME_PAGE_URL } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
       light: '#9ecde7',

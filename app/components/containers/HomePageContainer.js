@@ -4,6 +4,6 @@ import { Typography } from '@material-ui/core';
 
 export default () => (
   <Link to="/test" data-testid="orderLink">
-    <Typography color="textPrimary">Test Page</Typography>
+    <Typography color="textPrimary" variant="subtitle1">Test Page</Typography>
   </Link>
 );
