@@ -8,4 +8,4 @@ const TestPageContainer = () => (
     <Typography color="textPrimary" variant="subtitle1">HomePage</Typography>
   </Link>
 );
-export default withAuthenticator(TestPageContainer, true);
+export default withAuthenticator(TestPageContainer);

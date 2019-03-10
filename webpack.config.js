@@ -29,15 +29,16 @@ const config = {
   module: {
     rules: [
       { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
-      { test: /\.global\.css$/, use: ['style-loader', 'css-loader'], exclude: /\.module\.css$/ },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { sourceMap: true, modules: true, localIdentName: '[local]___[hash:base64:5]' } },
-        ],
-        exclude: /\.global\.css$/,
-      },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      // { test: /\.global\.css$/, use: ['style-loader', 'css-loader'], exclude: /\.module\.css$/ },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'style-loader',
+      //     { loader: 'css-loader', options: { sourceMap: true, modules: true, localIdentName: '[local]___[hash:base64:5]' } },
+      //   ],
+      //   exclude: /\.global\.css$/,
+      // },
       { test: /\.(png|jpg|gif)$/, use: [{ loader: 'url-loader', options: { limit: 8192 } }] },
     ],
   },
@@ -99,7 +100,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
           importLoaders: 1,
           sourceMap: true,
           modules: true,
-          localIdentName: '[local]___[hash:base64:5]',
+          // localIdentName: '[local]___[hash:base64:5]',
           minimize: {
             safe: true,
           },
