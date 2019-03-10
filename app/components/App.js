@@ -4,10 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import importedComponent from 'react-imported-component';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Amplify from 'aws-amplify';
 
 // import Navbar from './Navbar';
-import { HOME_PAGE_URL } from '../config';
+import { HOME_PAGE_URL, cognitoConfig } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
+
+Amplify.configure({
+  Auth: cognitoConfig,
+});
 
 const theme = createMuiTheme({
   typography: {
