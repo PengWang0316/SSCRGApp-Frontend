@@ -21,7 +21,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
   * @returns {object} Return the store object for Redux.
 */
 export default function configureStore(initailState) {
-  const store = createStore(persistedReducer, initailState, composeEnhancers(applyMiddleware(thunk)));
+  const store = createStore(
+    persistedReducer, initailState, composeEnhancers(applyMiddleware(thunk)),
+  );
   const persistor = persistStore(store);
   return { store, persistor };
   // return createStore(rootReducer, initailState, composeEnhancers(applyMiddleware(thunk)));
