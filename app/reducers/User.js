@@ -1,11 +1,11 @@
 import { USER_LOGIN_SUCCESS, USER_LOGOUT_SUCCESS } from '../actions/ActionTypes';
 
-const user = (state = {}, { type }) => {
+const user = (state = null, { type, cognitoUser }) => {
   switch (type) {
     case USER_LOGIN_SUCCESS:
-      return { isLogin: true };
+      return { nickname: cognitoUser.attributes.nickname };
     case USER_LOGOUT_SUCCESS:
-      return { isLogin: false };
+      return null;
     default:
       return state;
   }
