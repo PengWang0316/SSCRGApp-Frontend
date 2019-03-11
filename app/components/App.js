@@ -5,9 +5,12 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import importedComponent from 'react-imported-component';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Amplify from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
 
 import Navbar from './Navbar';
-import { HOME_PAGE_URL, cognitoConfig } from '../config';
+import {
+  HOME_PAGE_URL, TEST_PAGE_URL, SIGNIN_PAGE_URL, cognitoConfig, amplifyAuthSignOption,
+} from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 Amplify.configure({
@@ -50,7 +53,8 @@ export default () => (
         <main>
           <Switch>
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
-            <Route exact path="/test" component={TestPage} />
+            <Route exact path={TEST_PAGE_URL} component={TestPage} />
+            <Route exact path={SIGNIN_PAGE_URL} component={withAuthenticator(HomePage, amplifyAuthSignOption)} />
             <Route render={() => <p>Not Fount!</p>} />
           </Switch>
         </main>
