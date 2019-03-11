@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -12,7 +13,7 @@ import { Auth } from 'aws-amplify';
 import {
   HOME_PAGE_URL, TEST_PAGE_URL,
 } from '../config';
-
+import * as UserActions from '../actions/UserActions';
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -42,16 +43,27 @@ const styles = theme => ({
 
 /** Navbar component */
 export class Navbar extends Component {
-  static propTypes = { classes: PropTypes.object.isRequired };
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    user: PropTypes.object,
+    logoutSuccess: PropTypes.func.isRequired,
+    loginSuccess: PropTypes.func.isRequired,
+  };
 
-  state = { anchorEl: null, user: {} };
+  static defaultProps = { user: null };
+
+  state = { anchorEl: null };
 
   /**
    * Get the authentication user information.
    * @param {object} props contains all component's prop value
    */
   componentDidMount() {
-    Auth.currentAuthenticatedUser().then(user => this.setState({ user }));
+    const { loginSuccess } = this.props;
+    Auth.currentAuthenticatedUser()
+      .then(user => loginSuccess(user))
+      .catch(err => console.log(err));
   }
 
   /**
@@ -67,15 +79,23 @@ export class Navbar extends Component {
    * a user if the user has already login.
    * @return {null} No return.
    */
-  handleLoginButtonClick = () => {};
+  handleLoginButtonClick = () => {
+    const { history, user, logoutSuccess } = this.props;
+    if (user) {
+      Auth.signOut().then(() => {
+        logoutSuccess();
+        history.push('/');
+      });
+    } else history.push('/signin');
+  }
 
   /**
    * The render method to render the jsx.
    * @return {jsx} Return jsx.
    */
   render() {
-    const { classes } = this.props;
-    const { anchorEl, user } = this.state;
+    const { classes, user } = this.props;
+    const { anchorEl } = this.state;
     return (
       <AppBar position="static" className={classes.appbar} data-testid="navbar">
         <Toolbar>
@@ -88,9 +108,9 @@ export class Navbar extends Component {
             </Link>
             <Button color="inherit" data-testid="otherButton">Other</Button>
             <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
-              {user.username ? (
+              {user ? (
                 <Fragment>
-                  <Avatar className={classes.avatar}><Typography color="inherit">{user.attributes.nickname.charAt(0)}</Typography></Avatar>
+                  <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
                   <Typography color="inherit">Logout</Typography>
                 </Fragment>
               ) : 'Login'}
@@ -123,9 +143,9 @@ export class Navbar extends Component {
                 <Typography color="textPrimary">Other</Typography>
               </MenuItem>
               <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
-                {user.username ? (
+                {user ? (
                   <Fragment>
-                    <Avatar className={classes.avatar}><Typography color="inherit">{user.attributes.nickname.charAt(0)}</Typography></Avatar>
+                    <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
                     <Typography color="textPrimary">Logout</Typography>
                   </Fragment>
                 ) : 'Login'}
@@ -138,7 +158,15 @@ export class Navbar extends Component {
   }
 }
 
+/* istanbul ignore next */
+const mapStateToProps = state => ({ user: state.user });
+/* istanbul ignore next */
+const mapDispatchToProps = dispatch => ({
+  loginSuccess: user => dispatch(UserActions.loginSuccess(user)),
+  logoutSuccess: () => dispatch(UserActions.logoutSuccess()),
+});
+
 /* Putting the withRouter to the first position because when test code mocks Link
 the withRouter also has to be mocked. But it is hard to really return a react
 component to satisfy the whole chain call. */
-export default withRouter((withStyles(styles)(Navbar)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar)));
