@@ -8,6 +8,7 @@ export const cognitoConfig = {
   userPoolId: 'us-west-2_H5b19kIOP',
   region: 'us-west-2',
   userPoolWebClientId: '2nr52a5iheoumqcgr47qnlqojq',
+  identityPoolId: 'us-west-2:dc3b0c22-b71b-4196-a0e5-91896228a809',
 };
 
 export const amplifyAuthSignOption = {
@@ -21,5 +22,9 @@ export const amplifyAuthSignOption = {
         label: 'Email', key: 'username', required: true, type: 'string', displayOrder: 2,
       },
     ],
+  },
+  federated: {
+    google_client_id: '953200455973-a81rnojmm1ogtudaqtgsd1ge4bris6gt.apps.googleusercontent.com',
+    facebook_app_id: '405214103389849',
   },
 };
