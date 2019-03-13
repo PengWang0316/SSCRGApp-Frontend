@@ -8,7 +8,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import orange from '@material-ui/core/colors/orange';
-import { Auth } from 'aws-amplify';
+import { Auth, I18n } from 'aws-amplify';
 
 import {
   HOME_PAGE_URL, TEST_PAGE_URL,
@@ -100,20 +100,20 @@ export class Navbar extends Component {
       <AppBar position="static" className={classes.appbar} data-testid="navbar">
         <Toolbar>
           <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
-            <Typography variant="h6" color="inherit">SSCRG CLUB</Typography>
+            <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
           </Link>
           <Hidden only="xs">
             <Link to={TEST_PAGE_URL} className={classes.link}>
-              <Button color="inherit" data-testid="testButton">Test</Button>
+              <Button color="inherit" data-testid="testButton">{I18n.get('test')}</Button>
             </Link>
-            <Button color="inherit" data-testid="otherButton">Other</Button>
+            <Button color="inherit" data-testid="otherButton">{I18n.get('other')}</Button>
             <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
               {user ? (
                 <Fragment>
                   <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
-                  <Typography color="inherit">Logout</Typography>
+                  <Typography color="inherit">{I18n.get('logout')}</Typography>
                 </Fragment>
-              ) : 'Login'}
+              ) : I18n.get('login')}
             </Button>
           </Hidden>
           <Hidden only={['xl', 'lg', 'md', 'sm']}>
@@ -136,19 +136,19 @@ export class Navbar extends Component {
             >
               <MenuItem>
                 <Link to={TEST_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                  <Typography color="textPrimary">Test</Typography>
+                  <Typography color="textPrimary">{I18n.get('test')}</Typography>
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Typography color="textPrimary">Other</Typography>
+                <Typography color="textPrimary">{I18n.get('other')}</Typography>
               </MenuItem>
               <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
                 {user ? (
                   <Fragment>
                     <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
-                    <Typography color="textPrimary">Logout</Typography>
+                    <Typography color="textPrimary">{I18n.get('logout')}</Typography>
                   </Fragment>
-                ) : 'Login'}
+                ) : I18n.get('login')}
               </MenuItem>
             </Menu>
           </Hidden>

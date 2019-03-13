@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
-import { Auth } from 'aws-amplify';
+import { Auth, I18n } from 'aws-amplify';
 import PropTypes from 'prop-types';
 
 import { loginSuccess as loginSuccessAction } from '../../actions/UserActions';
@@ -15,7 +15,7 @@ const HomePage = ({ user, loginSuccess }) => {
     }
   });
 
-  return <Typography color="textPrimary" variant="h6">This is the Home Page</Typography>;
+  return <Typography color="textPrimary" variant="h6">{I18n.get('homePageContent')}</Typography>;
 };
 
 HomePage.propTypes = {
