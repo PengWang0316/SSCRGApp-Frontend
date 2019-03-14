@@ -3,7 +3,8 @@ import { withAuthenticator } from 'aws-amplify-react';
 import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Auth, I18n } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
+import I18n from '@kevinwang0316/i18n';
 
 import { amplifyAuthSignOption } from '../../config';
 import { loginSuccess as loginSuccessAction } from '../../actions/UserActions';

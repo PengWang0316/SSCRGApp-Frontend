@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
-import { I18n } from 'aws-amplify';
+import I18n from '@kevinwang0316/i18n';
 
 import App from './components/App';
 import configureStore from './store/ConfigureStore';
@@ -14,11 +14,9 @@ import dict from './Dict';
 
 const { store, persistor } = configureStore();
 
-// Fallback to english if cannot detect the language
-const language = (navigator.language || navigator.userLanguage || DEFAULT_LANGUAGE).slice(0, 2);
 // Fallback to english if dict does not have the user's language
-I18n.setLanguage(dict[language] ? language : DEFAULT_LANGUAGE);
-I18n.putVocabularies(dict);
+I18n.setDefaultLanguage(DEFAULT_LANGUAGE);
+I18n.setDictionary(dict);
 
 // ReactDOM.render(
 //   <Provider store={store}>

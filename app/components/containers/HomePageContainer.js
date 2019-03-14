@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
-import { Auth, I18n } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
+import I18n from '@kevinwang0316/i18n';
 import PropTypes from 'prop-types';
 
 import { loginSuccess as loginSuccessAction } from '../../actions/UserActions';

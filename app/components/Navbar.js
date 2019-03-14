@@ -8,7 +8,8 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import orange from '@material-ui/core/colors/orange';
-import { Auth, I18n } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
+import I18n from '@kevinwang0316/i18n';
 
 import {
   HOME_PAGE_URL, TEST_PAGE_URL,
