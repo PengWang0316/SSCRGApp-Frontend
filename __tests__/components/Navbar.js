@@ -16,6 +16,17 @@ jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
 jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
 jest.mock('react-router-dom', () => ({ Link: 'Link', withRouter: jest.fn() }));
+jest.mock('@kevinwang0316/i18n', () => ({ get: key => key }));
+// jest.mock('aws-amplify', () => ({
+//   Auth: {
+//     currentAuthenticatedUser: jest.fn().mockReturnValue({ then: jest.fn().mockImplementation(cb => cb({ id: 'userId' })).mockReturnValue({ catch: jest.fn().mockImplementation(cb => cb('error')) }) }),
+//   },
+// }));
+jest.mock('aws-amplify', () => ({
+  Auth: {
+    currentAuthenticatedUser: jest.fn().mockReturnValue(Promise.resolve({ id: 'userId' })),
+  },
+}));
 // jest.mock('react-redux', () => ({ connect: jest.fn() }));
 // jest.mock('@material-ui/core/styles', () => ({ withStyles: jest.fn() }));
 
@@ -30,24 +41,31 @@ describe('Navbar', () => {
       link: 'link', appbar: 'appbar', menuLink: 'menuLink', flex1: 'flex1', avatar: 'avatar',
     },
     logoutSuccess: jest.fn(),
-    loginSuccess: jest.fn(),
+    currentAuthenticatedUser: jest.fn(),
     user: null,
     history: { push: jest.fn() },
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
-  test('Initial state and parserUserFromJwt', () => {
-    const component = getShallowComponent();
-    expect(component.state('anchorEl')).toBe(null);
+  beforeEach(() => {
+    defaultProps.logoutSuccess.mockClear();
+    defaultProps.history.push.mockClear();
+    defaultProps.currentAuthenticatedUser.mockClear();
   });
 
-  // test('handleMenuIconClick', () => {
-  //   const component = getShallowComponent();
-  //   component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
-  //   expect(component.state('anchorEl')).toEqual('currentTarget');
-  //   component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
-  //   expect(component.state('anchorEl')).toBe(null);
-  // });
+  test('Initial state and componentDidMount', () => {
+    const component = getShallowComponent();
+    expect(component.state('anchorEl')).toBe(null);
+    expect(defaultProps.currentAuthenticatedUser).toHaveBeenCalledTimes(1);
+  });
+
+  test('handleMenuIconClick', () => {
+    const component = getShallowComponent();
+    component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
+    expect(component.state('anchorEl')).toEqual('currentTarget');
+    component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
+    expect(component.state('anchorEl')).toBe(null);
+  });
 
   // test('handleLoginButtonClick', () => {
   //   window.console = { // Silence the error and warning that come from enzyme mount.
