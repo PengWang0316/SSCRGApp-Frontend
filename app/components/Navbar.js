@@ -49,7 +49,7 @@ export class Navbar extends Component {
     history: PropTypes.object.isRequired,
     user: PropTypes.object,
     logoutSuccess: PropTypes.func.isRequired,
-    loginSuccess: PropTypes.func.isRequired,
+    currentAuthenticatedUser: PropTypes.func.isRequired,
   };
 
   static defaultProps = { user: null };
@@ -61,10 +61,8 @@ export class Navbar extends Component {
    * @param {object} props contains all component's prop value
    */
   componentDidMount() {
-    const { loginSuccess } = this.props;
-    Auth.currentAuthenticatedUser()
-      .then(user => loginSuccess(user))
-      .catch(err => console.log(err));
+    // eslint-disable-next-line react/destructuring-assignment
+    this.props.currentAuthenticatedUser();
   }
 
   /**
@@ -163,7 +161,7 @@ export class Navbar extends Component {
 const mapStateToProps = state => ({ user: state.user });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  loginSuccess: user => dispatch(UserActions.loginSuccess(user)),
+  currentAuthenticatedUser: () => dispatch(UserActions.currentAuthenticatedUser()),
   logoutSuccess: () => dispatch(UserActions.logoutSuccess()),
 });
 
