@@ -8,7 +8,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import orange from '@material-ui/core/colors/orange';
-import { Auth } from 'aws-amplify';
+// import { Auth } from 'aws-amplify';
 import I18n from '@kevinwang0316/i18n';
 
 import {
@@ -48,7 +48,7 @@ export class Navbar extends Component {
     classes: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     user: PropTypes.object,
-    logoutSuccess: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
     currentAuthenticatedUser: PropTypes.func.isRequired,
   };
 
@@ -79,12 +79,10 @@ export class Navbar extends Component {
    * @return {null} No return.
    */
   handleLoginButtonClick = () => {
-    const { history, user, logoutSuccess } = this.props;
+    const { history, user, logout } = this.props;
     if (user) {
-      Auth.signOut().then(() => {
-        logoutSuccess();
-        history.push('/');
-      });
+      logout();
+      history.push('/');
     } else history.push('/signin');
   }
 
@@ -162,7 +160,7 @@ const mapStateToProps = state => ({ user: state.user });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: () => dispatch(UserActions.currentAuthenticatedUser()),
-  logoutSuccess: () => dispatch(UserActions.logoutSuccess()),
+  logout: () => dispatch(UserActions.logout()),
 });
 
 /* Putting the withRouter to the first position because when test code mocks Link
