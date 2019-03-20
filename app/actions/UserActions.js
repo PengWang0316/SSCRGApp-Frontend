@@ -11,8 +11,10 @@ const logoutSuccess = () => ({
   type: USER_LOGOUT_SUCCESS,
 });
 
-export const currentAuthenticatedUser = () => Auth.currentAuthenticatedUser()
-  .then(user => loginSuccess(user))
+export const currentAuthenticatedUser = () => dispatch => Auth.currentAuthenticatedUser()
+  .then(user => dispatch(loginSuccess(user)))
   .catch(err => console.log(err));
 
-export const logout = () => dispatch => Auth.signOut().then(() => dispatch(logoutSuccess()));
+export const logout = () => dispatch => Auth.signOut()
+  .then(() => dispatch(logoutSuccess()))
+  .catch(err => console.log(err));
