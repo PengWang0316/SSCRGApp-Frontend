@@ -67,7 +67,7 @@ describe('Navbar', () => {
     expect(component.state('anchorEl')).toBe(null);
   });
 
-  test('handleLoginButtonClick withals', () => {
+  test('handleLoginButtonClick', () => {
     const component = getShallowComponent();
     component.instance().handleLoginButtonClick();
 
@@ -82,11 +82,7 @@ describe('Navbar', () => {
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
   });
 
-  // test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
 
-  // test('NavBar snapshot with user without avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
-
-  // test('NavBar snapshot with user with avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar' } }} />).toJSON()).toMatchSnapshot());
-
-  // test('NavBar snapshot with user with avatar with role 2', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar', role: 2 } }} />).toJSON()).toMatchSnapshot());
+  test('NavBar snapshot with user', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { nickname: 'nickname' } }} />).toJSON()).toMatchSnapshot());
 });
