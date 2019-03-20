@@ -7,10 +7,12 @@ const loginSuccess = cognitoUser => ({
   cognitoUser,
 });
 
-export const logoutSuccess = () => ({
+const logoutSuccess = () => ({
   type: USER_LOGOUT_SUCCESS,
 });
 
 export const currentAuthenticatedUser = () => Auth.currentAuthenticatedUser()
   .then(user => loginSuccess(user))
   .catch(err => console.log(err));
+
+export const logout = () => dispatch => Auth.signOut().then(() => dispatch(logoutSuccess()));
