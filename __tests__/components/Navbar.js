@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
-import { TEST_PAGE_URL, HOME_PAGE_URL } from '../../app/config';
+import { SIGNIN_PAGE_URL, HOME_PAGE_URL } from '../../app/config';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
 jest.mock('@material-ui/core/Toolbar', () => 'Toolbar');
@@ -40,7 +40,7 @@ describe('Navbar', () => {
     classes: {
       link: 'link', appbar: 'appbar', menuLink: 'menuLink', flex1: 'flex1', avatar: 'avatar',
     },
-    logoutSuccess: jest.fn(),
+    logout: jest.fn(),
     currentAuthenticatedUser: jest.fn(),
     user: null,
     history: { push: jest.fn() },
@@ -48,7 +48,7 @@ describe('Navbar', () => {
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
   beforeEach(() => {
-    defaultProps.logoutSuccess.mockClear();
+    defaultProps.logout.mockClear();
     defaultProps.history.push.mockClear();
     defaultProps.currentAuthenticatedUser.mockClear();
   });
@@ -67,43 +67,20 @@ describe('Navbar', () => {
     expect(component.state('anchorEl')).toBe(null);
   });
 
-  // test('handleLoginButtonClick', () => {
-  //   window.console = { // Silence the error and warning that come from enzyme mount.
-  //     error: jest.fn(),
-  //     warning: jest.fn()
-  //   };
-  //   const component = mount(<Navbar {...defaultProps} />);
-  //   component.setState({ anchorEl: true });
-  //   component.instance().handleLoginButtonClick();
-  //   expect(defaultProps.logout).not.toHaveBeenCalled();
-  //   expect(component.state('anchorEl')).toBeNull();
-  //   // expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-  //   // expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/');
-  //   expect(localStorage.getItem(LOGIN_CALLBACK_URL)).toEqual('/');
-  //   expect(context.handleLogoutAction).not.toHaveBeenCalled();
-  //   expect(context.handleToggleLoginDialog).toHaveBeenCalledTimes(1);
-  //   expect(defaultProps.history.push).not.toHaveBeenCalled();
+  test('handleLoginButtonClick withals', () => {
+    const component = getShallowComponent();
+    component.instance().handleLoginButtonClick();
 
-  //   // global.window = { location: { href: { value: 'http://df:39/dd' } } };
-  //   // Object.defineProperty(window.location, 'href', {
-  //   //   writable: true,
-  //   //   value: 'http://df:39/dd'
-  //   // });
-  //   jsdom.reconfigure({ // changing the window.location.href
-  //     url: 'http://df:39/dd'
-  //   });
-  //   component.instance().handleLoginButtonClick();
-  //   // expect(localStorage.setItem).toHaveBeenCalledTimes(2);
-  //   // expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/dd');
-  //   expect(localStorage.getItem(LOGIN_CALLBACK_URL)).toEqual('/dd');
-  //   component.setProps({ user: { _id: 'id' } }); // Setting a user object to props in order to test handleLoginButtonClick function.
-  //   component.instance().handleLoginButtonClick();
-  //   expect(defaultProps.logout).toHaveBeenCalledTimes(1);
-  //   expect(context.handleLogoutAction).toHaveBeenCalledTimes(1);
-  //   expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
-  //   expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
-  //   // expect(component.state('open')).toBe(false);
-  // });
+    expect(defaultProps.logout).not.toHaveBeenCalled();
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(SIGNIN_PAGE_URL);
+
+    component.setProps({ user: { nickname: 'name' } });
+    component.instance().handleLoginButtonClick();
+    expect(defaultProps.logout).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
+  });
 
   // test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
 

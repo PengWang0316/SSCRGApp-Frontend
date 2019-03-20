@@ -12,7 +12,7 @@ import orange from '@material-ui/core/colors/orange';
 import I18n from '@kevinwang0316/i18n';
 
 import {
-  HOME_PAGE_URL, TEST_PAGE_URL,
+  HOME_PAGE_URL, TEST_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
 import * as UserActions from '../actions/UserActions';
 
@@ -83,7 +83,7 @@ export class Navbar extends Component {
     if (user) {
       logout();
       history.push('/');
-    } else history.push('/signin');
+    } else history.push(SIGNIN_PAGE_URL);
   }
 
   /**
