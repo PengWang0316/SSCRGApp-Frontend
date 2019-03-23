@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
 import { SIGNIN_PAGE_URL, HOME_PAGE_URL } from '../../app/config';
@@ -17,23 +17,11 @@ jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
 jest.mock('react-router-dom', () => ({ Link: 'Link', withRouter: jest.fn() }));
 jest.mock('@kevinwang0316/i18n', () => ({ get: key => key }));
-// jest.mock('aws-amplify', () => ({
-//   Auth: {
-//     currentAuthenticatedUser: jest.fn().mockReturnValue({ then: jest.fn().mockImplementation(cb => cb({ id: 'userId' })).mockReturnValue({ catch: jest.fn().mockImplementation(cb => cb('error')) }) }),
-//   },
-// }));
 jest.mock('aws-amplify', () => ({
   Auth: {
     currentAuthenticatedUser: jest.fn().mockReturnValue(Promise.resolve({ id: 'userId' })),
   },
 }));
-// jest.mock('react-redux', () => ({ connect: jest.fn() }));
-// jest.mock('@material-ui/core/styles', () => ({ withStyles: jest.fn() }));
-
-// jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
-// jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
-// jest.mock('../../app/components/snackbars/LogoutSnackbar', () => 'LogoutSnackbar');
-// jest.mock('@material-ui/core/styles', () => { withStyles });
 
 describe('Navbar', () => {
   const defaultProps = {
