@@ -58,7 +58,6 @@ export class Navbar extends Component {
 
   /**
    * Get the authentication user information.
-   * @param {object} props contains all component's prop value
    */
   componentDidMount() {
     // eslint-disable-next-line react/destructuring-assignment
@@ -76,7 +75,6 @@ export class Navbar extends Component {
   /**
    * Showing the login dialog when the user did not login and logout
    * a user if the user has already login.
-   * @return {null} No return.
    */
   handleLoginButtonClick = () => {
     const { history, user, logout } = this.props;
