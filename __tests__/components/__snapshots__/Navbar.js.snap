@@ -30,7 +30,7 @@ exports[`Navbar NavBar snapshot with user 1`] = `
           color="inherit"
           data-testid="testButton"
         >
-          test
+          message
         </Button>
       </Link>
       <Button
@@ -96,7 +96,7 @@ exports[`Navbar NavBar snapshot with user 1`] = `
             <Typography
               color="textPrimary"
             >
-              test
+              message
             </Typography>
           </Link>
         </MenuItem>
@@ -162,7 +162,7 @@ exports[`Navbar NavBar snapshot without user 1`] = `
           color="inherit"
           data-testid="testButton"
         >
-          test
+          message
         </Button>
       </Link>
       <Button
@@ -215,7 +215,7 @@ exports[`Navbar NavBar snapshot without user 1`] = `
             <Typography
               color="textPrimary"
             >
-              test
+              message
             </Typography>
           </Link>
         </MenuItem>
