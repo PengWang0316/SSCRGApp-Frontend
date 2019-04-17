@@ -99,7 +99,7 @@ export class Navbar extends Component {
           </Link>
           <Hidden only="xs">
             <Link to={TEST_PAGE_URL} className={classes.link}>
-              <Button color="inherit" data-testid="testButton">{I18n.get('test')}</Button>
+              <Button color="inherit" data-testid="testButton">{I18n.get('message')}</Button>
             </Link>
             <Button color="inherit" data-testid="otherButton">{I18n.get('other')}</Button>
             <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
@@ -131,7 +131,7 @@ export class Navbar extends Component {
             >
               <MenuItem>
                 <Link to={TEST_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                  <Typography color="textPrimary">{I18n.get('test')}</Typography>
+                  <Typography color="textPrimary">{I18n.get('message')}</Typography>
                 </Link>
               </MenuItem>
               <MenuItem>

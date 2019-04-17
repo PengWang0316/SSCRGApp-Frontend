@@ -2,7 +2,7 @@ const dict = {
   'en-US': {
     login: 'login',
     logout: 'logout',
-    test: 'test',
+    message: 'message',
     other: 'other',
     appName: 'SSCRG CLUB',
     homePageContent: 'This is the Home Page',
@@ -11,7 +11,7 @@ const dict = {
   zh: {
     login: '登录',
     logout: '登出',
-    test: '测试',
+    message: '信息',
     other: '其他',
     appName: 'SSCRG 俱乐部',
     homePageContent: '这是首页',
